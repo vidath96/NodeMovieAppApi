@@ -25,7 +25,6 @@ router.get('/', requireQuery, (req, res, next) => {
 router.get('/movie', (req, res, next) =>{
   const searchTerm = req.query.query
 
-  // res.json({ msg: 'Search Movie' });
   let results = movies.filter((movie) => {
     let found = movie.overview.includes(searchTerm) || movie.title.includes(searchTerm)
     return found
@@ -40,7 +39,6 @@ router.get('/movie', (req, res, next) =>{
 router.get('/person', requireQuery, (req, res, next) => {
   const searchTerm = req.query.query
 
-  // res.json({ msg: 'Search Person' });
   let results = people.filter((person) => {
     let found = person.name.includes(searchTerm)
     return found
