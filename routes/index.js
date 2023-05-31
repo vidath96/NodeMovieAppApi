@@ -10,16 +10,26 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/most-popular', function(req, res, next) {
-  if(req.query.api_key != 123456789){
-      res.json({
-        msg: 'Invalid API Key'
-      })
-  }else{
-    const results = movies.filter((movie) => {
+  let page = req.query.page
+  if(page === undefined){page = 1}
+  // if(req.query.api_key != 123456789){
+  //     res.json({
+  //       msg: 'Invalid API Key'
+  //     })
+  // }else{
+    let results = movies.filter((movie) => {
       return movie.most_popular
     })
-    res.json(results)
-  }
+    // results = results.slice(0,19)
+    const sliceStart = (page-1)*20
+    const sliceEnd = (page-1)*20+19
+    results = results.slice(sliceStart,sliceEnd)
+
+    res.json({
+      page: page,
+      results: results
+    }) 
+  // }
 });
 
 module.exports = router;
